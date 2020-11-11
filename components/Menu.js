@@ -34,23 +34,27 @@ console.log(menuItems)
   Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned menu to the header.
 */
 
-const menuMaker = () => {
-  // Creating menu DOM component
+const menuMaker = (arr) => {
+// Creating menu DOM component
   const menu = document.createElement('div');
   const menuUl = document.createElement('ul');
-  const menuLi = document.createElement('li');
 
 // Appending children to parent DOM element 
   menu.appendChild(menuUl);
-  menuUl.appendChild(menuLi);
 
-
-  // Adding Class names
+// Adding Class names
   menu.classList.add('menu');
 
-
+  
+ 
+// Iterating through arr to return new li menuItems
+  arr.forEach(item => {
+    const newMenuLi = document.createElement('li');
+    newMenuLi.textContent = item;
+    menuUl.appendChild(newMenuLi)
+  })
 
   return menu;
 }
 
-console.log(menuMaker())
+console.log(menuMaker(menuItems))

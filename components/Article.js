@@ -103,18 +103,25 @@ const data = [
     <span class="expandButton">+</span>
   </div> */
 
+  /*  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+  This listener should toggle the class 'article-open' on div.article.  */
 
-const articleMaker = (title, date, paraOne, paraTwo, paraThree) => { // adding 3 parameters for articleMaker
-  // create article DOM component
-  const article = document.createElement('div'); // Creating needed elements 
+
+const articleMaker = (object) => {
+  const article = document.createElement('div'); 
   const articleTitle = document.createElement('h2');
   const articleDate = document.createElement('p');
   const articleParaOne = document.createElement('p');
   const articleParaTwo = document.createElement('p');
   const articleParaThree = document.createElement('p');
   const articleSpan = document.createElement('span');
-
-  // Structure like HTML - Appending children elements to the parent element
+  
+  // Classes to be added here
+  article.classList.add('article');
+  articleDate.classList.add('date');
+  articleSpan.classList.add('expandButton');
+  
+// Appending children elements to parent elements 
   article.appendChild(articleTitle);
   article.appendChild(articleDate);
   article.appendChild(articleParaOne);
@@ -122,51 +129,38 @@ const articleMaker = (title, date, paraOne, paraTwo, paraThree) => { // adding 3
   article.appendChild(articleParaThree);
   article.appendChild(articleSpan);
 
-  // Classes to be added here
-  article.classList.add('article');
-  articleDate.classList.add('date');
-  articleSpan.classList.add('expandButton');
-
-
-  // Adding content
-  articleTitle.textContent = title;
-  articleDate.textContent = date;
-  articleParaOne.textContent = paraOne;
-  articleParaTwo.textContent = paraTwo;
-  articleParaThree.textContent = paraThree;
+// Adding content
+  articleTitle.textContent = object.title;
+  articleDate.textContent = object.date;
+  articleParaOne.textContent = object.firstParagraph;
+  articleParaTwo.textContent = object.secondParagraph;
+  articleParaThree.textContent = object.thirdParagraph;
   articleSpan.textContent = '+';
 
-
-  /*  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.  */
-  
+// Event listener for span 
   articleSpan.addEventListener('click', () => {
     console.log('read on');
     article.classList.toggle('article-open');
   })
 
-
   return article; // Return article DOM element 
 }
 
-console.log(articleMaker());
-
-const articleComponent = articleMaker('title text', 'date text', 'paraOne text', 'paraTwo text', 'paraThree text');
-const articles = document.querySelector('.articles'); // PARENT HTML DOM ELEMENT
-articles.appendChild(articleComponent);
-
+articleMaker(data);
 
 /* Step 3: Don't forget to return something from your function! */
-function createArticleTwo() {
-  return "created article two";
-}
-console.log(createArticleTwo())
+// function createArticleTwo() {
+//   return "created article two";
+// }
+// console.log(createArticleTwo())
 
 /* Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
  to create a div.article element and append it to the DOM inside div.articles (see index.html). */
 
+const articles = document.querySelector('.articles'); // PARENT HTML DOM ELEMENT
+
 data.forEach(item => {
-  articles.appendChild(articleMaker(item.title, item.date, item.firstParagraph, item.secondParagraph, item.thirdParagraph))
+  articles.appendChild(articleMaker(item))
 })
 
 /* Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
